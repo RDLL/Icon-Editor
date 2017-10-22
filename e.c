@@ -1,6 +1,6 @@
 /** Librerias
- * stdio.h Usada para la captura de datos asi como para la exportaciÛn de los mismos.
- * graphics.h Usada para el uso de gr·ficos.
+ * stdio.h Usada para la captura de datos asi como para la exportaci√≥n de los mismos.
+ * graphics.h Usada para el uso de gr√°ficos.
  * stdlib.h Usada para el uso de los apuntadores ya que en esta se inlcuye la funcion malloc.
 */
 
@@ -21,7 +21,7 @@ typedef struct{
 
 /** Constantes
  * tam; Usada para el aumento en las coordenadas de cada cuadro de la paleta de colores(No se requiere en la malla).
- * TAM; Usada para el aumento en las coordenadasd de cada cuadro del men˙(No se requiere en la malla).
+ * TAM; Usada para el aumento en las coordenadasd de cada cuadro del men√∫(No se requiere en la malla).
 */
 #define tam 40
 #define TAM 80
@@ -72,12 +72,12 @@ void Guarcom();
 
 /** Funcion Principal
  * Incluye la declaracion de los punteros de la paleta y el menu asi como la activacion del
- * modo gr·fico y la llamada a las demas funciones.
+ * modo gr√°fico y la llamada a las demas funciones.
 */
 
 int main(){ /**Inicio de la funcion principal.**/
     int *c=NULL,*d=NULL; /**Declaracion de los punteros para la paleta de colores y del menu.**/
-    initwindow(800,640,"Editor"); /**Inicializacion de  modo gr·fico.**/
+    initwindow(800,640,"Editor"); /**Inicializacion de  modo gr√°fico.**/
     paleta(&c); /**Llamada a la funcion para graficar la paleta de colores.**/
     menu(&d); /**Llamada a la funcion para graficar el menu.**/
     mouse(); /**Llamada a la funcion mouse para el uso del mouse.**/
@@ -153,7 +153,7 @@ void menu(int **d){ /**Inicio de la funcion para graficar el menu**/
                     } /**Fin de la sentencia para el aumento de la coordenada en x**/
                     if(i==6){ /**Sentencia para la dismunucion de la coordenada en x**/
                         x-=TAM; /**Disminucion de la coordenada en x**/
-                    } /**Fin de la sentencia para disminuciÛn la coordenada en x**/
+                    } /**Fin de la sentencia para disminuci√≥n la coordenada en x**/
                     *(*d+i)=x; /**Declaracion de la posicion d+i(0,2,4,6) como coordenada en x**/
                 } /**Fin de la sentencia para mandar la coordenada en x**/
             } /**Fin de ciclo para mandar las coordenadas de cada cuadro del menu**/
@@ -295,7 +295,7 @@ void mouse(){ /**Inicio de la funcion para el uso del mouse dentro del modo graf
                 for(i=0;i<n;i++)/**Ciclo para liberar memoria de arreglos de punteros**/
                         free(*M+i);/**Liberacion de memoria de arreglos de punteros**/
                 free(M);/**Liberacion de memoria de arreglos**/
-                n=m=0;/**Inicializacion de n y m para nuevo ingreso de tamaÒo en la funcio dibuja mall**/
+                n=m=0;/**Inicializacion de n y m para nuevo ingreso de tama√±o en la funcio dibuja mall**/
                 M=NULL;/**Inicializacion de arreglo como NULL para poder ser usado**/
             }/**Fin de la comprobacion del puntero de arreglos**/
             setfillstyle(SOLID_FILL,BLACK);/**Seleccion de color de fondo de la malla**/
@@ -321,7 +321,7 @@ void mouse(){ /**Inicio de la funcion para el uso del mouse dentro del modo graf
                 guardar();/**Llamada a funcion de guardado**/
             }/**Fin de comprobacion**/
             else{/**Comprobacion de malla vacia**/
-                printf("Error: TamaÒo de la malla aun no ha sido ingresado");/**Mensaje de error que indica que no hay malla**/
+                printf("Error: Tama√±o de la malla aun no ha sido ingresado");/**Mensaje de error que indica que no hay malla**/
             }/**Fin de comprobacion**/
             clearmouseclick(WM_LBUTTONDBLCLK);/**Limpieza de click del mouse**/
         }/**Fin de opcion guardar**/
@@ -339,12 +339,12 @@ void mouse(){ /**Inicio de la funcion para el uso del mouse dentro del modo graf
 } /**Fin de la funcion para el uso del mouse**/
 
 void dibujamall(){/**Funcion para dibujar la malla**/
-    int i,j,k,ax,ay,an,am;/**(i,j)contadores para coordenadas,(ax,ay)aumentos en X y Y,(an,am)auxiliares para obtener el tamaÒo de los cuadros**/
+    int i,j,k,ax,ay,an,am;/**(i,j)contadores para coordenadas,(ax,ay)aumentos en X y Y,(an,am)auxiliares para obtener el tama√±o de los cuadros**/
     if(n==0 && m==0){/**Comprobacion de valores de n y m por si se abrio algun archivo**/
-        printf("Dame N");/**Texto para pedir tamaÒo en n**/
-        scanf("%d",&n);/**Captura del tamaÒo en n**/
-        printf("Dame M");/**Texto para pedir el tamaÒo en m**/
-        scanf("%d",&m);/**Captura del tamaÒo en m**/
+        printf("Dame N");/**Texto para pedir tama√±o en n**/
+        scanf("%d",&n);/**Captura del tama√±o en n**/
+        printf("Dame M");/**Texto para pedir el tama√±o en m**/
+        scanf("%d",&m);/**Captura del tama√±o en m**/
         M=(MALLA**)malloc(sizeof(MALLA*)*n);/**Declaracion de M como arreglo**/
         if(M){/**Comprobacion de que existe M**/
             for(i=0;i<n;i++){/**Ciclo para declarar M com un arreglo de punteros**/
@@ -359,20 +359,20 @@ void dibujamall(){/**Funcion para dibujar la malla**/
     }/**Fin de comprobacion de no existir archivo abierto**/
     an=n;/**Declaracion de auxiliar como n**/
     am=m;/**Declaracion de auxiliar como m**/
-    while((400%n)!=0){/**Comprobacion y ciclo para saber si n es divisible entre el tamaÒo horizontal de la malla**/
-            an+=1;/**Aumento hasta llegar a un tamaÒo divisible**/
-        }/**Fin de ciclo y comprobacion**/
-    while((400%m)!=0){
-            am+=1;
-        }
-    ax=400/an;
-    ay=400/am;
-    x=50;
-    y=100;
-    if(M){
-        for(i=0;i<n;i++){
-            y=100;
-            for(j=0;j<m;j++){
+    while((400%n)!=0){/**Comprobacion y ciclo para saber si el tama√±o vertical de la malla es divisible entre n**/
+            an+=1;/**Aumento hasta llegar a un tama√±o divisible**/
+        }//Fin de ciclo de comprobacion y aumento//
+    while((400%m)!=0){ //Comprobacion y ciclo para saber si el tama√±o horizonal de la malla es divisible entre m//
+            am+=1; //Aumento hasta llegar a un tama√±o divisible//
+        } //Fin de ciclo de comprobacion y aumento//
+    ax=400/am; //Obtencion del tama√±o de cada cuadro en horizontal//
+    ay=400/an; //Obtencio del tama√±o de cada cuadro en vertical//
+    x=50; //Posicion en x de primer cuadro//
+    y=100; //Posicion en y de primer cuadro//
+    if(M){ //Comprobacion de existencia de arreglo//
+        for(i=0;i<n;i++){ //Recorrido de posiciones verticales//
+            y=100; //Inicializacion de posicion y//
+            for(j=0;j<m;j++){ //Recorrido de posiciones horizontales//
                 if((*(M+i)+j)->color==0){
                 (*(M+i)+j)->color=0;
                 }
