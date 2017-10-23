@@ -57,6 +57,7 @@ FILE *arch;
  * void abrir(); Usada para abrir un archivo, se requiere el nombre del mismo.
  * void guardar(); Usada para guardar el archivo, pide el nombre a poner al archivo.
  * void Guarcom(); Usada para guardar archivo en binario o texto, siempre pregunta nombre a poner al archivo y tipo de archivo.
+ * void cambiacol(); Usada para cambiar un color en especifico por otro (colores basicos 0-15)
 */
 
 void paleta(int **c);
@@ -69,6 +70,7 @@ void previa();
 void abrir();
 void guardar();
 void Guarcom();
+void cambiacol();
 
 /** Funcion Principal
  * Incluye la declaracion de los punteros de la paleta y el menu asi como la activacion del
@@ -139,7 +141,7 @@ void menu(int **d){ /**Inicio de la funcion para graficar el menu**/
     if(*d){ /**Sentencia para la comprobacion del arreglo**/
         x=50; /**Iniciacion de las coordenadas en x para los cuadros del menu**/
         y=20; /**Iniciacion de las coordenadas en y para los cuadros del menu**/
-        for(ic=0;ic<5;ic++){ /**Ciclo para dibujar cada cuadro del menu**/
+        for(ic=0;ic<6;ic++){ /**Ciclo para dibujar cada cuadro del menu**/
             for(i=0;i<8;i++){ /**Ciclo para dar coordenadas de cada cuadro del menu**/
                 if((i%2)!=0){ /**Sentencia para mandar la coordenada en y**/
                     if(i==5){ /**Sentencia para aumento de la coordenada en y**/
@@ -179,6 +181,10 @@ void menu(int **d){ /**Inicio de la funcion para graficar el menu**/
                 if(ic==4){ /**Sentencia para la opcion de CERRAR para el cierre del editor**/
                     outtextxy(x-90,y+15,"CERRAR"); /**Graficiacion de la opcion CERRAR**/
                 } /**Fin de la sentencia para la opcion de CERRAR**/
+                if(ic==5){ /**Sentencia para la graficacion de la opcion CAMBIA COLOR**/
+                    outtextxy(x-90,y+3,"CAMBIA"); /**Graficacion de CAMBIA**/
+                    outtextxy(x-85,y+22,"COLOR"); /**Graficacion de COLOR**/
+                } /**Fin de sentencia de graficacion de opcion CAMBIA COLOR**/
         } /**Fin de ciclo para graficar cada cuadro del menu**/
     } /**Fin de sentencia para la comprobacion del arreglo**/
 } /**Fin de la funcion para graficar el menu**/
@@ -329,6 +335,10 @@ void mouse(){ /**Inicio de la funcion para el uso del mouse dentro del modo graf
             Guarcom();/**Llamado a la funcion para guardar el archivo con otro nombre**/
             clearmouseclick(WM_LBUTTONDBLCLK);/**Linpieza de click del mouse**/
         }
+        if(ismouseclick(WM_LBUTTONDBLCLK) && (ix>550 && ix<630 && iy>20 && iy<60)){/**Coordenadas de la opcion cambiar color**/
+            cambiacol();/**Llamado a funcion cambiacol**/
+            clearmouseclick(WM_LBUTTONDBLCLK);/**Linpieza de click del mouse**/
+        } /**Fin de opcion cambiacolor**/
         if(ismouseclick(WM_LBUTTONDBLCLK) && (ix>450 && ix<530 && iy>20 && iy<60)){/**Coordenadas de la opcion salir**/
             ib=1;/**Cambio del valor en la bandera para salir del ciclo*/
         }
@@ -544,3 +554,28 @@ void Guarcom(){
     fclose(arch);
     printf("Archivo Guardado con Exito");
 }
+
+void cambiacol(){ //Inicio de funcion para cambiar color
+    int i,j,ca,cc; //Variables de contadores y colores
+    printf("Dime color a cambiar <0-15>"); //Impresion de texto para pedir el numero del color a cambiar
+    scanf("%d",&ca); //Obtencion de numero de color
+    while(ca>15 || ca<0){ //Ciclo en caso de no haberse capturado un numero valido
+        printf("Dime color a cambiar <0-15>"); //Impresion de texto para pedir el numero del color a cambiar
+        scanf("%d",&ca); //Obtencion de numero de color
+    } //Fin de ciclo
+    printf("A que color <0-15>");  //Impresion de texto para pedir el numero del color al cual se quiere cambiar
+    scanf("%d",&cc); //Obtencion de numero de color
+    while(cc>15 || cc<0){ //Ciclo en caso de no haberse capturado un numero valido
+        printf("Dime color a cambiar <0-15>"); //Impresion de texto para pedir el numero del color a cambiar
+        scanf("%d",&ca); //Obtencion de numero de color
+    } //Fin de ciclo
+    if(M){ //Comprobacion de existencia de M
+    for(i=0;i<n;i++){ //Recorrido en y
+        for(j=0;j<m;j++){  //Recorrido en x
+            if((*(M+i)+j)->color==ca) //Comprobacion para saber si es el color que se quiere cambiar
+            (*(M+i)+j)->color=cc; //Cambio de color
+        } //Fin de recorrido en x
+    } //Fin de recorrido en y
+    } //Fin de comprobacion
+    dibujamall(); //Llamado a funcion dibujamall con el cambio de color
+} //Fin de funcion cambiacol
